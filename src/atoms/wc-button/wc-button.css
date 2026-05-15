@@ -1,0 +1,49 @@
+/*
+ * wc-button.css
+ *
+ * Docstrings-only CSS file for the `<wc-button>` atom component.
+ *
+ * This file defines the singleton styles injected into the Shadow DOM
+ * of each `<wc-button>` instance. It provides visual variants and
+ * interaction states.
+ *
+ * ## CSS Variables (custom properties)
+ *
+ * | Variable                              | Default            | Purpose |
+ * |---------------------------------------|--------------------|---------|
+ * | --wc-button--padding                  | 6px 16px          | Inner padding of the button. |
+ * | --wc-button--background               | #f0f0f0           | Default background colour. |
+ * | --wc-button--foreground               | #333               | Default text/icon colour. |
+ * | --wc-button--border-radius            | 4px               | Corner rounding. |
+ * | --wc-button--font-size                | 14px              | Text size. |
+ * | --wc-button--transition               | 0.15s            | Transition duration for states. |
+ * | --wc-button--primary-background       | #1a73e8           | Background for "primary" variant. |
+ * | --wc-button--primary-foreground       | #fff              | Text colour for "primary" variant. |
+ * | --wc-button--danger-background        | #e63946           | Background for "danger" variant. |
+ * | --wc-button--danger-foreground        | #fff              | Text colour for "danger" variant. |
+ * | --wc-button--icon-only-size           | 36px             | Width/height for icon-only variant. |
+ * | --wc-button--icon-only-padding        | 0               | Padding reset for icon-only. |
+ * | --wc-button--hover-opacity            | 0.90             | Opacity on hover. |
+ * | --wc-button--active-scale             | 0.96             | Scale transform on press. |
+ * | --wc-button--disabled-opacity         | 0.45             | Opacity when disabled. |
+ *
+ * ## Selectors
+ *
+ * | Selector           | Purpose |
+ * |--------------------|---------|
+ * | :host              | The host element — inline-block, inherits variant via attribute. |
+ * | :host button       | The native `<button>` inside the Shadow DOM — applies all visual styles. |
+ * | :host button[disabled] | Disabled state styling. |
+ * | :host([variant="primary"]) button | Primary variant overrides. |
+ * | :host([variant="danger"]) button | Danger variant overrides. |
+ * | :host([variant="icon-only"]) button | Icon-only layout overrides. |
+ * | :host button:focus-visible        | Focus ring on keyboard activation. |
+ * | :host button:active               | Press state with scale transform. |
+ * | ::slotted(*)                       | Styles for slotted content (text, icon). |
+ *
+ * ## Notes
+ *
+ * The host node (:host) uses inline-block to respect text flow.
+ * The internal `<button>` element is styled with border: none and
+ * cursor: pointer by default.
+ */

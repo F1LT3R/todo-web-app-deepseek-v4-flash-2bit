@@ -1,0 +1,51 @@
+/*
+ * wc-text-input.css
+ *
+ * Docstrings-only CSS file for the `<wc-text-input>` atom component.
+ *
+ * A styled single-line text input with a floating label and optional
+ * supporting text/error under the field.
+ *
+ * ## CSS Variables (custom properties)
+ *
+ * | Variable                                    | Default    | Purpose |
+ * |---------------------------------------------|------------|---------|
+ * | --wc-text-input--padding                    | 10px 12px  | Inner padding of the input element. |
+ * | --wc-text-input--border                     | 1px solid #ccc | Default border. |
+ * | --wc-text-input--border-radius              | 4px        | Corner radius. |
+ * | --wc-text-input--font-size                  | 14px       | Text size inside the input. |
+ * | --wc-text-input--background                 | #fff       | Input background colour. |
+ * | --wc-text-input--foreground                 | #333       | Text colour, default. |
+ * | --wc-text-input--placeholder-color          | #999       | Placeholder text colour. |
+ * | --wc-text-input--focus-border               | #1a73e8    | Border colour on focus. |
+ * | --wc-text-input--focus-shadow               | 0 0 0 2px rgba(26,115,232,0.2) | Focus ring box-shadow. |
+ * | --wc-text-input--label-color                | #666       | Floating label colour (idle). |
+ * | --wc-text-input--label-color-active         | #1a73e8    | Floating label colour (active). |
+ * | --wc-text-input--label-font-size            | 12px       | Label font size (floating up). |
+ * | --wc-text-input--label-transition           | 0.15s      | Label float animation duration. |
+ * | --wc-text-input--supporting-color           | #666       | Supporting text colour. |
+ * | --wc-text-input--supporting-font-size       | 11px       | Supporting text font size. |
+ * | --wc-text-input--supporting-gap             | 4px        | Gap between input and supporting text. |
+ * | --wc-text-input--disabled-opacity           | 0.5        | Opacity when disabled. |
+ *
+ * ## Selectors
+ *
+ * | Selector                                       | Purpose |
+ * |------------------------------------------------|---------|
+ * | :host                                           | Vertical flex layout for the whole group (label+input+supporting). |
+ * | .input-wrapper                                  | Wrapper div for positioning the floating label behind the input. |
+ * | .input-wrapper input                            | The native <input> element with all typographic styles. |
+ * | .input-wrapper label                            | The label element positioned inside the wrapper. |
+ * | .input-wrapper label.floating                   | Class applied when the input is focused or non-empty, raising the label. |
+ * | .input-wrapper input:focus + label              | Sibling selector for float-on-focus. |
+ * | .input-wrapper input:not([value=""]) + label    | Sibling selector for float-when-filled. |
+ * | .supporting-text                                | The small message/error text below the input. |
+ * | .supporting-text.error                          | Red-coloured variant for validation messages. |
+ * | :host([disabled]) .input-wrapper input          | Disabled state overrides. |
+ *
+ * ## Notes
+ *
+ * The floating label is implemented via a `<label>` element positioned
+ * absolutely inside the input wrapper, rising when the input is focused
+ * or non-empty. No external JavaScript animation needed.
+ */

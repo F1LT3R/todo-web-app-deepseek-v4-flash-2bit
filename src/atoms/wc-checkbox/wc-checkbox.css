@@ -1,0 +1,46 @@
+/*
+ * wc-checkbox.css
+ *
+ * Docstrings-only CSS file for the `<wc-checkbox>` atom component.
+ *
+ * This file defines the singleton styles for the custom checkbox. The
+ * native `<input type="checkbox">` is visually hidden; a styled surrogate
+ * element is drawn instead.
+ *
+ * ## CSS Variables (custom properties)
+ *
+ * | Variable                                | Default    | Purpose |
+ * |-----------------------------------------|------------|---------|
+ * | --wc-checkbox--size                    | 20px       | Width/height of the checkbox visual. |
+ * | --wc-checkbox--border                  | 2px        | Border width of the box. |
+ * | --wc-checkbox--border-color            | #ccc       | Border colour unchecked. |
+ * | --wc-checkbox--border-color-checked    | #1a73e8    | Border colour when checked. |
+ * | --wc-checkbox--background              | #fff       | Background of the checkbox. |
+ * | --wc-checkbox--background-checked      | #1a73e8    | Background when checked. |
+ * | --wc-checkbox--checkmark-color         | #fff       | Colour of the checkmark SVG. |
+ * | --wc-checkbox--checkmark-thickness     | 2.5px      | Stroke width of checkmark. |
+ * | --wc-checkbox--border-radius           | 3px        | Corner radius of the box. |
+ * | --wc-checkbox--transition              | 0.12s      | Transition for states. |
+ * | --wc-checkbox--label-gap               | 8px        | Gap between box and label text. |
+ * | --wc-checkbox--label-font-size         | 14px       | Font size of the label. |
+ *
+ * ## Selectors
+ *
+ * | Selector                              | Purpose |
+ * |---------------------------------------|---------|
+ * | :host                                 | Flex row layout, aligns box + label. |
+ * | .checkbox-input                       | Visually hidden native input (screen-reader only). |
+ * | .checkbox-visual                      | The surrogate box drawn via CSS. Contains the checkmark. |
+ * | .checkbox-visual .checkmark           | The checkmark SVG/pseudo-element, shown only when checked. |
+ * | :host([checked]) .checkbox-visual     | Checked state — background/border override. |
+ * | :host .checkbox-label                 | The label text element, rendered next to the box. |
+ * | :host([disabled])                     | Dimmed appearance. |
+ * | :host(:focus-within) .checkbox-visual | Focus ring on the surrogate when input is focused. |
+ * | :host:not([checked]) .checkmark       | Hidden checkmark when unchecked. |
+ *
+ * ## Notes
+ *
+ * The component does NOT use `<slot>` for the label — it creates a
+ * lightweight element from the `label` attribute or a child text node.
+ * This keeps the Shadow DOM sealed with no content projection leaks.
+ */

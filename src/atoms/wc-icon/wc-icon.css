@@ -1,0 +1,34 @@
+/*
+ * wc-icon.css
+ *
+ * Docstrings-only CSS file for the `<wc-icon>` atom component.
+ *
+ * This file defines the singleton styles injected into the Shadow DOM of
+ * each `<wc-icon>` instance. Styles are scoped — they affect only the
+ * component's internal template and do not cascade outside the Shadow DOM.
+ *
+ * ## CSS Variables (custom properties)
+ *
+ * | Variable                        | Default          | Purpose |
+ * |----------------------------------|------------------|---------|
+ * | --wc-icon--size                 | 24px             | Width/height of the icon bounding box. |
+ * | --wc-icon--fill                 | currentColor     | Fill color of the SVG path(s). |
+ * | --wc-icon--stroke               | none             | Stroke color of the SVG path(s). |
+ * | --wc-icon--stroke-width         | 1.5              | Stroke thickness. |
+ * | --wc-icon--viewbox              | 0 0 24 24       | SVG viewBox attribute value. |
+ *
+ * ## Selectors
+ *
+ * | Selector       | Purpose |
+ * |----------------|---------|
+ * | :host          | The Shadow root — sets display, size, alignment. |
+ * | svg            | The actual `<svg>` element, sized to fill the host. |
+ * | svg path       | Each path in the SVG, filled/stroked from properties. |
+ *
+ * ## Notes
+ *
+ * The icon component renders an inline `<svg>` based on an icon name
+ * attribute (`icon`). The CSS does not define the SVG contents (that is done
+ * declaratively in the component's template), but it ensures the SVG
+ * respects the size and color values passed as CSS custom properties.
+ */

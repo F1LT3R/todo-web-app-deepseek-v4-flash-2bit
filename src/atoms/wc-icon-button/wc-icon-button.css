@@ -1,0 +1,40 @@
+/*
+ * wc-icon-button.css
+ *
+ * Docstrings-only CSS file for the `<wc-icon-button>` atom component.
+ *
+ * An icon-only button atom — visually a circle or square with an icon
+ * inside. Composes <wc-icon> with a native <button> skeleton.
+ *
+ * ## CSS Variables (custom properties)
+ *
+ * | Variable                                  | Default      | Purpose |
+ * |-------------------------------------------|--------------|---------|
+ * | --wc-icon-button--size                   | 36px         | Outer button bounding box. |
+ * | --wc-icon-button--icon-size              | 20px         | Icon bounding box inside. |
+ * | --wc-icon-button--background             | transparent  | Default background. |
+ * | --wc-icon-button--background-hover       | rgba(0,0,0,0.08) | Background on hover. |
+ * | --wc-icon-button--background-active      | rgba(0,0,0,0.12) | Background on press. |
+ * | --wc-icon-button--border-radius          | 50%          | Circular by default. |
+ * | --wc-icon-button--border                | none         | Border, if any. |
+ * | --wc-icon-button--fill                  | currentColor | Icon fill colour. |
+ * | --wc-icon-button--transition             | 0.12s        | Background transition. |
+ * | --wc-icon-button--disabled-opacity       | 0.38         | Opacity when disabled. |
+ * | --wc-icon-button--focus-ring             | 0 0 0 3px rgba(26,115,232,0.25) | Focus outline. |
+ *
+ * ## Selectors
+ *
+ * | Selector                                  | Purpose |
+ * |-------------------------------------------|---------|
+ * | :host                                     | Inline-block, cursor pointer. |
+ * | :host button                              | The native <button>, fills host. |
+ * | :host button:focus-visible                | Focus ring applied. |
+ * | :host button:active                       | Press scaling / background. |
+ * | :host([disabled]) button                  | Disabled pointer-events / opacity. |
+ * | :host wc-icon                             | The icon child element, centred. |
+ *
+ * ## Notes
+ *
+ * This atom composes `<wc-icon>` inside a `<button>`. The slot system
+ * is NOT used — the icon is directly constructed in the template.
+ */
