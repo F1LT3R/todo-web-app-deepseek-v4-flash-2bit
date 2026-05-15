@@ -30,3 +30,24 @@
  * Provides only CSS overrides on the base `<wc-icon-button>` atom.
  * Icon is set to "copy/clone" by the component.
  */
+
+:host {
+  display: inline-block;
+}
+
+:host wc-icon-button {
+  --wc-icon-button--background-hover: var(--wc-todo-clone-button--background-hover, #eef);
+  --wc-icon-button--background-active: var(--wc-todo-clone-button--background-active, #ddf);
+}
+
+:host(:hover) wc-icon-button {
+  --wc-icon-button--fill: var(--wc-todo-clone-button--icon-fill-hover, #1a73e8);
+}
+
+:host(:hover) wc-icon-button wc-icon {
+  --wc-icon--fill: var(--wc-todo-clone-button--icon-fill-hover, #1a73e8);
+}
+
+:host wc-icon-button wc-icon {
+  --wc-icon--fill: var(--wc-todo-clone-button--icon-fill, #888);
+}

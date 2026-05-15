@@ -38,3 +38,65 @@
  * The list exposes drop-target zones by listening to `dragover`,
  * `dragenter`, `dragleave`, and `drop` events on itself.
  */
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 60px;
+  padding: var(--wc-todo-list--padding, 8px 0);
+  background: var(--wc-todo-list--background, transparent);
+  gap: var(--wc-todo-list--gap, 4px);
+  position: relative;
+}
+
+.todo-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wc-todo-list--gap, 4px);
+  position: relative;
+  min-height: 0;
+}
+
+/* Drop indicator — visible only during drag */
+.drop-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--wc-todo-list--drop-indicator-height, 3px);
+  background: var(--wc-todo-list--drop-indicator-color, #1a73e8);
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--wc-todo-list--transition, 0.15s);
+  z-index: 10;
+}
+
+.drop-indicator.visible {
+  opacity: 1;
+}
+
+/* Empty state */
+.todo-list-empty {
+  display: none;
+  padding: 32px 0;
+  text-align: center;
+  color: var(--wc-todo-list--empty-text-color, #999);
+  font-size: var(--wc-todo-list--empty-text-font-size, 14px);
+}
+
+:host([empty]) .todo-list-empty {
+  display: block;
+}
+
+:host([empty]) .todo-list-container {
+  display: none;
+}
+
+/* Dragging state */
+:host([dragging]) {
+  /* Dim items during drag */
+}
+
+:host([dragging]) wc-todo-item {
+  transition: opacity var(--wc-todo-list--transition, 0.15s);
+}

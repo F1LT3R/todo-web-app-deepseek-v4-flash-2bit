@@ -82,3 +82,105 @@
  * - click:                   Dispatched by the native `<slot>` button click.
  *                            Bubbles: yes. Detail: none.
  */
+
+class WcButton extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.setAttribute('role', 'button');
+  }
+
+  connectedCallback() {
+    this._attachStyles();
+    this._buildButton();
+    this._syncButtonState();
+  }
+
+  attributeChangedCallback(name, old, new) {
+    if (old === new) return;
+    if (this.shadowRoot) {
+      const btn = this.shadowRoot.querySelector('button');
+      if (!btn) return;
+      switch (name) {
+        case 'variant':
+          this.setAttribute('variant', new || 'default');
+          break;
+        case 'disabled':
+          this._syncButtonState();
+          break;
+        case 'type':
+          btn.setAttribute('type', new || 'button');
+          break;
+        case 'tabindex':
+          btn.setAttribute('tabindex', new || '0');
+          break;
+      }
+    }
+  }
+
+  static get observedAttributes() {
+    return ['variant', 'disabled'];
+  }
+
+  /* --- Accessors --- */
+
+  get disabled() {
+    return this.hasAttribute('disabled');
+  }
+
+  set disabled(value) {
+    if (value) {
+      this.setAttribute('disabled', '');
+    } else {
+      this.removeAttribute('disabled');
+    }
+  }
+
+  get variant() {
+    return this.getAttribute('variant') || 'default';
+  }
+
+  set variant(value) {
+    this.setAttribute('variant', value);
+  }
+
+  /* --- Internal Methods --- */
+
+  _attachStyles() {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = new URL('wc-button.css', import.meta.url);
+    this.shadowRoot.appendChild(link);
+  }
+
+  _buildButton() {
+    const btn = document.createElement('button');
+    btn.type = this.getAttribute('type') || 'button';
+
+    const slot = document.createElement('slot');
+    btn.appendChild(slot);
+
+    this.shadowRoot.innerHTML = '';
+    this.shadowRoot.appendChild(btn);
+    this._btn = btn;
+
+    btn.addEventListener('click', (e) => this._onClick(e));
+  }
+
+  _syncButtonState() {
+    const btn = this.shadowRoot?.querySelector('button');
+    if (!btn) return;
+    btn.disabled = this.disabled;
+    btn.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+  }
+
+  _onClick(e) {
+    if (this.disabled) {
+      e.preventDefault();
+    }
+  }
+}
+
+customElements.define('wc-button', WcButton);
+
+export { WcButton };

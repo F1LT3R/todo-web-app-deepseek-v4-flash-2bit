@@ -83,3 +83,126 @@
  * - wc:edit-cancel:  Cancel button clicked or Escape pressed.
  *                    Bubbles: yes. Detail: { id: string }
  */
+
+class WcTodoEditInput extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+    this._attachStyles();
+    this._buildTemplate();
+    this._syncValue();
+  }
+
+  attributeChangedCallback(name, old, new) {
+    if (old === new) return;
+    if (name === 'value' && this.shadowRoot) {
+      const input = this.shadowRoot.querySelector('wc-todo-input');
+      if (input) input.value = new || '';
+    }
+  }
+
+  static get observedAttributes() {
+    return ['value'];
+  }
+
+  /* --- Accessors --- */
+
+  get value() {
+    const input = this.shadowRoot?.querySelector('wc-todo-input');
+    return input ? input.value : '';
+  }
+
+  set value(v) {
+    const input = this.shadowRoot?.querySelector('wc-todo-input');
+    if (input) input.value = v || '';
+  }
+
+  /* --- Internal Methods --- */
+
+  _attachStyles() {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = new URL('wc-todo-edit-input.css', import.meta.url);
+    this.shadowRoot.appendChild(link);
+  }
+
+  _buildTemplate() {
+    // Wrapper
+    const wrapper = document.createElement('div');
+    wrapper.className = 'edit-input-wrapper';
+
+    const todoInput = document.createElement('wc-todo-input');
+    todoInput.value = this.getAttribute('value') || '';
+    todoInput.setAttribute('placeholder', 'Edit item...');
+    todoInput.setAttribute('label', 'Edit TODO text');
+
+    wrapper.appendChild(todoInput);
+
+    // Action buttons
+    const actions = document.createElement('div');
+    actions.className = 'edit-actions';
+
+    const saveBtn = document.createElement('wc-button');
+    saveBtn.className = 'save-button';
+    saveBtn.textContent = 'Save';
+    saveBtn.setAttribute('variant', 'primary');
+
+    const cancelBtn = document.createElement('wc-button');
+    cancelBtn.className = 'cancel-button';
+    cancelBtn.textContent = 'Cancel';
+    saveBtn.setAttribute('variant', 'default');
+
+    actions.appendChild(saveBtn);
+    actions.appendChild(cancelBtn);
+
+    this.shadowRoot.innerHTML = '';
+    this.shadowRoot.appendChild(wrapper);
+    this.shadowRoot.appendChild(actions);
+
+    // Wire events
+    saveBtn.addEventListener('click', () => this._onSave());
+    cancelBtn.addEventListener('click', () => this._onCancel());
+
+    todoInput.addEventListener('keydown', (e) => this._onKeydown(e));
+  }
+
+  _syncValue() {
+    const input = this.shadowRoot?.querySelector('wc-todo-input');
+    if (input) input.value = this.value;
+  }
+
+  _onSave() {
+    this.dispatchEvent(
+      new CustomEvent('wc:edit-save', {
+        bubbles: true,
+        detail: { id: this.getAttribute('id'), value: this.value },
+      })
+    );
+  }
+
+  _onCancel() {
+    this.dispatchEvent(
+      new CustomEvent('wc:edit-cancel', {
+        bubbles: true,
+        detail: { id: this.getAttribute('id') },
+      })
+    );
+  }
+
+  _onKeydown(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this._onSave();
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      this._onCancel();
+    }
+  }
+}
+
+customElements.define('wc-todo-edit-input', WcTodoEditInput);
+
+export { WcTodoEditInput };

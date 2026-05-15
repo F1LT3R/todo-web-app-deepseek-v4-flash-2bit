@@ -49,3 +49,85 @@
  * absolutely inside the input wrapper, rising when the input is focused
  * or non-empty. No external JavaScript animation needed.
  */
+
+:host {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  gap: 4px;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input-wrapper input {
+  display: block;
+  width: 100%;
+  padding: var(--wc-text-input--padding, 10px 12px);
+  border: var(--wc-text-input--border, 1px solid #ccc);
+  border-radius: var(--wc-text-input--border-radius, 4px);
+  font-size: var(--wc-text-input--font-size, 14px);
+  background: var(--wc-text-input--background, #fff);
+  color: var(--wc-text-input--foreground, #333);
+  outline: none;
+  transition: border-color var(--wc-text-input--label-transition, 0.15s),
+              box-shadow var(--wc-text-input--label-transition, 0.15s);
+  box-sizing: border-box;
+  line-height: 1.4;
+}
+
+.input-wrapper input::placeholder {
+  color: var(--wc-text-input--placeholder-color, #999);
+  opacity: 1;
+}
+
+.input-wrapper input:focus {
+  border-color: var(--wc-text-input--focus-border, #1a73e8);
+  box-shadow: var(--wc-text-input--focus-shadow, 0 0 0 2px rgba(26,115,232,0.2));
+}
+
+/* Floating label */
+.input-wrapper label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--wc-text-input--font-size, 14px);
+  color: var(--wc-text-input--label-color, #666);
+  pointer-events: none;
+  transition: top var(--wc-text-input--label-transition, 0.15s),
+              font-size var(--wc-text-input--label-transition, 0.15s),
+              color var(--wc-text-input--label-transition, 0.15s);
+  transform-origin: left center;
+  line-height: 1.4;
+}
+
+/* Float label when input is focused or non-empty */
+.input-wrapper input:focus + label,
+.input-wrapper input:not([value=""]) + label {
+  top: 2px;
+  font-size: var(--wc-text-input--label-font-size, 12px);
+  color: var(--wc-text-input--label-color-active, #1a73e8);
+}
+
+/* Supporting text */
+.supporting-text {
+  font-size: var(--wc-text-input--supporting-font-size, 11px);
+  color: var(--wc-text-input--supporting-color, #666);
+  margin-top: var(--wc-text-input--supporting-gap, 4px);
+  line-height: 1.3;
+}
+
+.supporting-text.error {
+  color: #e63946;
+}
+
+/* Disabled state */
+:host([disabled]) .input-wrapper input {
+  opacity: var(--wc-text-input--disabled-opacity, 0.5);
+  pointer-events: none;
+  cursor: not-allowed;
+}

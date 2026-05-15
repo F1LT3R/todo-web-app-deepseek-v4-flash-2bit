@@ -37,3 +37,26 @@
  * The form does NOT wrap a native `<form>` element. Instead, it uses
  * composed atoms and dispatches a custom event.
  */
+
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--wc-todo-form--gap, 8px);
+  padding: var(--wc-todo-form--padding, 12px 0);
+  background: var(--wc-todo-form--background, transparent);
+}
+
+:host wc-todo-input {
+  flex: var(--wc-todo-form--input-flex, 1);
+  min-width: 0;
+}
+
+:host wc-button[type="submit"] {
+  flex: var(--wc-todo-form--button-flex, 0);
+  --wc-button--background: var(--wc-todo-form--submit-background, #1a73e8);
+  --wc-button--foreground: var(--wc-todo-form--submit-foreground, #fff);
+  --wc-button--font-size: var(--wc-todo-form--submit-font-size, 14px);
+  --wc-button--padding: var(--wc-todo-form--submit-padding, 8px 20px);
+  white-space: nowrap;
+}

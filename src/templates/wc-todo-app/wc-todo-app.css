@@ -49,3 +49,64 @@
  * This is the highest-level template — it is rendered directly in the
  * HTML page.
  */
+
+:host {
+  display: block;
+  font-family: var(--wc-todo-app--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+  background: var(--wc-todo-app--background, #f5f5f5);
+  min-height: 100vh;
+  padding: var(--wc-todo-app--padding, 20px);
+  box-sizing: border-box;
+}
+
+:host::before {
+  content: '';
+}
+
+.app-container {
+  max-width: var(--wc-todo-app--max-width, 600px);
+  margin: 0 auto;
+  background: var(--wc-todo-app--card-background, #fff);
+  border-radius: var(--wc-todo-app--card-border-radius, 12px);
+  box-shadow: var(--wc-todo-app--card-shadow, 0 2px 12px rgba(0,0,0,0.08));
+  padding: var(--wc-todo-app--card-padding, 24px);
+  box-sizing: border-box;
+}
+
+.app-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--wc-todo-app--header-gap, 8px);
+  margin-bottom: 16px;
+}
+
+.app-title {
+  font-size: var(--wc-todo-app--header-font-size, 28px);
+  font-weight: var(--wc-todo-app--header-font-weight, 700);
+  color: var(--wc-todo-app--header-color, #222);
+  margin: 0;
+}
+
+.app-count {
+  font-size: var(--wc-todo-app--count-font-size, 14px);
+  color: var(--wc-todo-app--count-color, #888);
+  transition: opacity 0.15s;
+}
+
+.app-count[hidden] {
+  display: none;
+}
+
+:host([empty]) .app-count {
+  display: none;
+}
+
+wc-todo-form {
+  display: block;
+  margin-bottom: 12px;
+}
+
+wc-todo-list {
+  display: block;
+}

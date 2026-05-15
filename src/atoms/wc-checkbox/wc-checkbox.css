@@ -44,3 +44,79 @@
  * lightweight element from the `label` attribute or a child text node.
  * This keeps the Shadow DOM sealed with no content projection leaks.
  */
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wc-checkbox--label-gap, 8px);
+  cursor: pointer;
+  font-size: var(--wc-checkbox--label-font-size, 14px);
+}
+
+/* Visually hidden native input */
+.checkbox-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Surrogate checkbox box */
+.checkbox-visual {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--wc-checkbox--size, 20px);
+  height: var(--wc-checkbox--size, 20px);
+  border: var(--wc-checkbox--border, 2px) solid var(--wc-checkbox--border-color, #ccc);
+  border-radius: var(--wc-checkbox--border-radius, 3px);
+  background: var(--wc-checkbox--background, #fff);
+  cursor: pointer;
+  transition: background var(--wc-checkbox--transition, 0.12s),
+              border-color var(--wc-checkbox--transition, 0.12s);
+  flex-shrink: 0;
+}
+
+/* Checkmark — visible only when checked */
+.checkmark {
+  width: 60%;
+  height: 60%;
+  stroke: var(--wc-checkbox--checkmark-color, #fff);
+  stroke-width: var(--wc-checkbox--checkmark-thickness, 2.5px);
+  fill: none;
+  opacity: 1;
+  transition: opacity var(--wc-checkbox--transition, 0.12s);
+}
+
+:host(:focus-within) .checkbox-visual {
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.25);
+}
+
+/* Checked state */
+:host([checked]) .checkbox-visual {
+  background: var(--wc-checkbox--background-checked, #1a73e8);
+  border-color: var(--wc-checkbox--border-color-checked, #1a73e8);
+}
+
+:host(:not([checked])) .checkmark {
+  opacity: 0;
+}
+
+/* Label */
+.checkbox-label {
+  font-size: var(--wc-checkbox--label-font-size, 14px);
+  color: inherit;
+  user-select: none;
+  line-height: 1.4;
+}
+
+/* Disabled state */
+:host([disabled]) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

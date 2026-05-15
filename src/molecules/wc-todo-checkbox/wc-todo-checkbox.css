@@ -35,3 +35,38 @@
  * a `<slot>` named "label". This molecule provides domain-specific sizing
  * and the strikethrough effect on the completed TODO.
  */
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+:host wc-checkbox {
+  --wc-checkbox--size: var(--wc-todo-checkbox--size, 24px);
+  --wc-checkbox--border-color: var(--wc-todo-checkbox--border-color, #bbb);
+  --wc-checkbox--border-color-checked: var(--wc-todo-checkbox--border-color-checked, #34a853);
+  --wc-checkbox--background-checked: var(--wc-todo-checkbox--background-checked, #34a853);
+  --wc-checkbox--checkmark-color: var(--wc-todo-checkbox--checkmark-color, #fff);
+  --wc-checkbox--transition: var(--wc-todo-checkbox--transition, 0.2s);
+}
+
+:host(:focus-within) wc-checkbox {
+  /* Increase hit area to 44px for touch accessibility */
+  min-width: var(--wc-todo-checkbox--hit-area, 44px);
+  min-height: var(--wc-todo-checkbox--hit-area, 44px);
+}
+
+/* Strikethrough and dimmed label when checked */
+:host([checked]) ::slotted(*) {
+  text-decoration: line-through;
+  opacity: 0.5;
+  transition: opacity var(--wc-todo-checkbox--transition, 0.2s),
+              text-decoration var(--wc-todo-checkbox--transition, 0.2s);
+}
+
+/* Override checkbox visual style for checked state */
+:host([checked]) wc-checkbox {
+  --wc-checkbox--border-color: var(--wc-todo-checkbox--border-color-checked, #34a853);
+  --wc-checkbox--background-checked: var(--wc-todo-checkbox--background-checked, #34a853);
+}

@@ -32,3 +32,25 @@
  * declaratively in the component's template), but it ensures the SVG
  * respects the size and color values passed as CSS custom properties.
  */
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--wc-icon--size, 24px);
+  height: var(--wc-icon--size, 24px);
+  flex-shrink: 0;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+svg path {
+  fill: var(--wc-icon--fill, currentColor);
+  stroke: var(--wc-icon--stroke, none);
+  stroke-width: var(--wc-icon--stroke-width, 1.5);
+}

@@ -88,3 +88,125 @@
  * - wc:todo-input:    Every keystroke forwarded.
  *                     Bubbles: yes. Detail: { value: string }
  */
+
+class WcTodoInput extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+    this._attachStyles();
+    this._buildTemplate();
+    this._focusInput();
+  }
+
+  attributeChangedCallback(name, old, new) {
+    if (old === new) return;
+    if (this.shadowRoot) {
+      const input = this.shadowRoot.querySelector('wc-text-input');
+      if (!input) return;
+      switch (name) {
+        case 'value':
+          input.value = new || '';
+          break;
+        case 'placeholder':
+          input.placeholder = new || '';
+          break;
+        case 'label':
+          input.setAttribute('label', new || '');
+          break;
+      }
+    }
+  }
+
+  static get observedAttributes() {
+    return ['value', 'placeholder', 'label'];
+  }
+
+  /* --- Accessors --- */
+
+  get value() {
+    const input = this.shadowRoot?.querySelector('wc-text-input');
+    return input ? input.value : '';
+  }
+
+  set value(v) {
+    const input = this.shadowRoot?.querySelector('wc-text-input');
+    if (input) input.value = v || '';
+  }
+
+  get placeholder() {
+    return this.getAttribute('placeholder') || '';
+  }
+
+  set placeholder(value) {
+    this.setAttribute('placeholder', value);
+  }
+
+  /* --- Internal Methods --- */
+
+  _attachStyles() {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = new URL('wc-todo-input.css', import.meta.url);
+    this.shadowRoot.appendChild(link);
+  }
+
+  _buildTemplate() {
+    const todoInput = document.createElement('wc-text-input');
+    todoInput.value = this.getAttribute('value') || '';
+    todoInput.placeholder = this.getAttribute('placeholder') || 'What needs to be done?';
+    todoInput.setAttribute('label', this.getAttribute('label') || 'New TODO');
+    todoInput.setAttribute('supporting-text', 'Press Enter to add');
+    if (this.disabled) {
+      todoInput.setAttribute('disabled', '');
+    }
+
+    this.shadowRoot.innerHTML = '';
+    this.shadowRoot.appendChild(todoInput);
+
+    // Wire events
+    todoInput.addEventListener('keydown', (e) => this._onKeydown(e));
+    todoInput.addEventListener('wc:input', (e) => this._onInput(e));
+  }
+
+  _focusInput() {
+    const input = this.shadowRoot?.querySelector('wc-text-input');
+    if (input) {
+      // Focus the underlying native input
+      const nativeInput = input.shadowRoot?.querySelector('.text-input');
+      if (nativeInput) nativeInput.focus();
+    }
+  }
+
+  _onKeydown(e) {
+    if (e.key === 'Enter') {
+      const val = this.value.trim();
+      if (val) {
+        this.dispatchEvent(
+          new CustomEvent('wc:submit', {
+            bubbles: true,
+            detail: { value: val },
+          })
+        );
+        // Clear the input
+        const input = this.shadowRoot?.querySelector('wc-text-input');
+        if (input) input.value = '';
+      }
+    }
+  }
+
+  _onInput(e) {
+    this.dispatchEvent(
+      new CustomEvent('wc:todo-input', {
+        bubbles: true,
+        detail: { value: e.detail.value },
+      })
+    );
+  }
+}
+
+customElements.define('wc-todo-input', WcTodoInput);
+
+export { WcTodoInput };

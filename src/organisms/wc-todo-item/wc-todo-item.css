@@ -57,3 +57,100 @@
  * The default state is "view mode". Toggling shows "edit mode".
  * The drag handle uses a "grip" icon.
  */
+
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--wc-todo-item--gap, 8px);
+  padding: var(--wc-todo-item--padding, 8px 12px);
+  background: var(--wc-todo-item--background, #fff);
+  border-radius: var(--wc-todo-item--border-radius, 6px);
+  border: var(--wc-todo-item--border, 1px solid #e0e0e0);
+  position: relative;
+  transition: opacity var(--wc-todo-item--transition, 0.12s),
+              box-shadow var(--wc-todo-item--transition, 0.12s),
+              background var(--wc-todo-item--transition, 0.12s);
+  box-shadow: var(--wc-todo-item--shadow, 0 1px 3px rgba(0,0,0,0.10));
+}
+
+/* Hover state */
+:host(:hover) {
+  background: var(--wc-todo-item--background-hover, #f8f9fa);
+}
+
+/* Dragging state */
+:host([dragging]) {
+  opacity: var(--wc-todo-item--dragging-opacity, 0.7);
+  box-shadow: var(--wc-todo-item--dragging-shadow, 0 4px 12px rgba(0,0,0,0.20));
+  cursor: grabbing;
+}
+
+/* Edit mode highlight */
+:host([editing]) {
+  background: var(--wc-todo-item--edit-mode-background, #f0f8ff);
+}
+
+/* Drag handle */
+.drag-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--wc-todo-item--drag-handle-size, 24px);
+  height: var(--wc-todo-item--drag-handle-size, 24px);
+  cursor: grab;
+  flex-shrink: 0;
+}
+
+.drag-handle wc-icon {
+  --wc-icon--fill: var(--wc-todo-item--drag-handle-fill, #ccc);
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* TODO text (view mode) */
+.todo-text {
+  flex: 1;
+  font-size: var(--wc-todo-item--text-font-size, 15px);
+  color: var(--wc-todo-item--text-color, #333);
+  line-height: 1.5;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host([checked]) .todo-text {
+  text-decoration: line-through;
+  color: var(--wc-todo-item--text-color-done, #999);
+}
+
+/* Edit input mode (hidden by default) */
+.todo-edit-input {
+  display: none;
+  flex: 1;
+  min-width: 0;
+}
+
+:host([editing]) .todo-edit-input {
+  display: inline-flex;
+}
+
+:host([editing]) .todo-text {
+  display: none;
+}
+
+/* Action buttons group */
+.todo-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.todo-actions wc-todo-delete-button,
+.todo-actions wc-todo-clone-button {
+  display: inline-flex;
+}

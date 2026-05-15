@@ -38,3 +38,43 @@
  * TODO item. It replaces the static text with an input + two
  * confirmation buttons.
  */
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wc-todo-edit-input--gap, 6px);
+  padding: var(--wc-todo-edit-input--padding, 4px 0);
+  background: var(--wc-todo-edit-input--background, #fff);
+  border-radius: 6px;
+  flex-wrap: nowrap;
+}
+
+.edit-input-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+.edit-input-wrapper wc-todo-input {
+  width: 100%;
+}
+
+.edit-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.edit-actions .save-button {
+  --wc-button--background: var(--wc-todo-edit-input--save-background, #1a73e8);
+  --wc-button--foreground: var(--wc-todo-edit-input--save-foreground, #fff);
+  --wc-button--font-size: 13px;
+  --wc-button--padding: 6px 14px;
+}
+
+.edit-actions .cancel-button {
+  --wc-button--background: var(--wc-todo-edit-input--cancel-background, #e0e0e0);
+  --wc-button--foreground: var(--wc-todo-edit-input--cancel-foreground, #333);
+  --wc-button--font-size: 13px;
+  --wc-button--padding: 6px 14px;
+}

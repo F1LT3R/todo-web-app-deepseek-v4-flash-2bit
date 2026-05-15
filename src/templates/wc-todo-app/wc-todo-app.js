@@ -128,3 +128,263 @@
  *
  * (None forwarded — the template is the top-level coordinator.)
  */
+
+class WcTodoApp extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this._items = [];
+  }
+
+  connectedCallback() {
+    this._attachStyles();
+    this._buildShell();
+    this._wireEvents();
+    this._parsePersistedItems();
+    this._updateCount();
+  }
+
+  attributeChangedCallback(name, old, new) {
+    if (old === new) return;
+    if (name === 'items' && this.shadowRoot) {
+      try {
+        this._items = JSON.parse(new || '[]');
+      } catch {
+        this._items = [];
+      }
+      const list = this.shadowRoot.querySelector('wc-todo-list');
+      if (list) list.items = this._items;
+      this._updateCount();
+    }
+  }
+
+  static get observedAttributes() {
+    return ['items'];
+  }
+
+  /* --- Accessors --- */
+
+  get items() {
+    return [...this._items];
+  }
+
+  set items(value) {
+    this._items = value || [];
+    const list = this.shadowRoot?.querySelector('wc-todo-list');
+    if (list) list.items = this._items;
+    this._updateCount();
+    this._serializeItems();
+  }
+
+  get itemCount() {
+    return this._items.length;
+  }
+
+  /* --- Internal Methods --- */
+
+  _attachStyles() {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = new URL('wc-todo-app.css', import.meta.url);
+    this.shadowRoot.appendChild(link);
+  }
+
+  _buildShell() {
+    // Container
+    const container = document.createElement('div');
+    container.className = 'app-container';
+
+    // Header
+    const header = document.createElement('div');
+    header.className = 'app-header';
+
+    const title = document.createElement('h1');
+    title.className = 'app-title';
+    title.textContent = 'TODO';
+
+    const count = document.createElement('div');
+    count.className = 'app-count';
+    count.textContent = '0 items';
+    count.setAttribute('hidden', '');
+    this._countEl = count;
+
+    header.appendChild(title);
+    header.appendChild(count);
+
+    // Form
+    const form = document.createElement('wc-todo-form');
+    form.setAttribute('placeholder', 'What needs to be done?');
+
+    // List
+    const list = document.createElement('wc-todo-list');
+    list.items = this._items;
+    this._listEl = list;
+
+    container.appendChild(header);
+    container.appendChild(form);
+    container.appendChild(list);
+
+    this.shadowRoot.innerHTML = '';
+    this.shadowRoot.appendChild(container);
+  }
+
+  _wireEvents() {
+    const form = this.shadowRoot?.querySelector('wc-todo-form');
+    const list = this.shadowRoot?.querySelector('wc-todo-list');
+
+    if (form) {
+      form.addEventListener('wc:add', (e) => this._onAdd(e));
+    }
+
+    if (list) {
+      list.addEventListener('wc:list-check', (e) => this._onCheck(e));
+      list.addEventListener('wc:list-delete', (e) => this._onDelete(e));
+      list.addEventListener('wc:list-clone', (e) => this._onClone(e));
+      list.addEventListener('wc:list-edit', (e) => this._onEdit(e));
+      list.addEventListener('wc:reorder', (e) => this._onReorder(e));
+    }
+  }
+
+  _parsePersistedItems() {
+    const serialized = this.getAttribute('items');
+    if (serialized) {
+      try {
+        this._items = JSON.parse(serialized);
+        const list = this.shadowRoot?.querySelector('wc-todo-list');
+        if (list) list.items = this._items;
+      } catch {
+        this._items = [];
+      }
+    }
+  }
+
+  /* --- Event Handlers --- */
+
+  _onAdd(e) {
+    const { text } = e.detail;
+    const id = this._generateId();
+
+    this._items.push({ id, text, checked: false });
+    this._items = [...this._items];
+
+    const list = this.shadowRoot?.querySelector('wc-todo-list');
+    if (list) list.items = this._items;
+
+    this._updateCount();
+    this._serializeItems();
+
+    // Re-focus the input after adding
+    setTimeout(() => {
+      const form = this.shadowRoot?.querySelector('wc-todo-form');
+      if (form) {
+        const input = form.shadowRoot?.querySelector('wc-todo-input');
+        if (input) {
+          const native = input.shadowRoot?.querySelector('.text-input');
+          if (native) native.focus();
+        }
+      }
+    }, 0);
+  }
+
+  _onDelete(e) {
+    const { id } = e.detail;
+    this._items = this._items.filter((i) => i.id !== id);
+    this._items = [...this._items];
+
+    const list = this.shadowRoot?.querySelector('wc-todo-list');
+    if (list) list.items = this._items;
+
+    this._updateCount();
+    this._serializeItems();
+  }
+
+  _onCheck(e) {
+    const { id, checked } = e.detail;
+    const item = this._items.find((i) => i.id === id);
+    if (item) {
+      item.checked = checked;
+      this._items = [...this._items];
+    }
+
+    const list = this.shadowRoot?.querySelector('wc-todo-list');
+    if (list) list.items = this._items;
+
+    this._serializeItems();
+  }
+
+  _onClone(e) {
+    const { id, cloneId } = e.detail;
+    const item = this._items.find((i) => i.id === id);
+    if (item) {
+      const index = this._items.indexOf(item);
+      const clone = { ...item, id: cloneId };
+      this._items.splice(index + 1, 0, clone);
+      this._items = [...this._items];
+
+      const list = this.shadowRoot?.querySelector('wc-todo-list');
+      if (list) list.items = this._items;
+
+      this._serializeItems();
+    }
+  }
+
+  _onEdit(e) {
+    const { id, value } = e.detail;
+    const item = this._items.find((i) => i.id === id);
+    if (item) {
+      item.text = value;
+      this._items = [...this._items];
+    }
+
+    const list = this.shadowRoot?.querySelector('wc-todo-list');
+    if (list) list.items = this._items;
+
+    this._serializeItems();
+  }
+
+  _onReorder(e) {
+    const { orderedIds } = e.detail;
+    // Reorder items array per orderedIds
+    const idMap = new Map(this._items.map((i) => [i.id, i]));
+    const reordered = orderedIds
+      .map((id) => idMap.get(id))
+      .filter(Boolean);
+
+    // Preserve any items not in orderedIds (edge case)
+    const remaining = this._items.filter((i) => !orderedIds.includes(i.id));
+    this._items = [...reordered, ...remaining];
+
+    const list = this.shadowRoot?.querySelector('wc-todo-list');
+    if (list) list.items = this._items;
+
+    this._serializeItems();
+  }
+
+  /* --- Count & Persistence --- */
+
+  _updateCount() {
+    if (!this._countEl) return;
+    const count = this.itemCount;
+    this._countEl.textContent = `${count} item${count !== 1 ? 's' : ''}`;
+
+    if (count === 0) {
+      this._countEl.setAttribute('hidden', '');
+      this.setAttribute('empty', '');
+    } else {
+      this._countEl.removeAttribute('hidden');
+      this.removeAttribute('empty');
+    }
+  }
+
+  _serializeItems() {
+    this.setAttribute('items', JSON.stringify(this._items));
+  }
+
+  _generateId() {
+    return `todo_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+  }
+}
+
+customElements.define('wc-todo-app', WcTodoApp);
+
+export { WcTodoApp };

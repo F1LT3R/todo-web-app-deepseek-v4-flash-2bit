@@ -47,3 +47,74 @@
  * The internal `<button>` element is styled with border: none and
  * cursor: pointer by default.
  */
+
+:host {
+  display: inline-block;
+}
+
+:host button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: var(--wc-button--padding, 6px 16px);
+  background: var(--wc-button--background, #f0f0f0);
+  color: var(--wc-button--foreground, #333);
+  border: none;
+  border-radius: var(--wc-button--border-radius, 4px);
+  font-size: var(--wc-button--font-size, 14px);
+  cursor: pointer;
+  transition: opacity var(--wc-button--transition, 0.15s),
+              transform var(--wc-button--transition, 0.15s);
+  line-height: 1.4;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+:host button[disabled] {
+  opacity: var(--wc-button--disabled-opacity, 0.45);
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Primary variant */
+:host([variant="primary"]) button {
+  background: var(--wc-button--primary-background, #1a73e8);
+  color: var(--wc-button--primary-foreground, #fff);
+}
+
+/* Danger variant */
+:host([variant="danger"]) button {
+  background: var(--wc-button--danger-background, #e63946);
+  color: var(--wc-button--danger-foreground, #fff);
+}
+
+/* Icon-only variant */
+:host([variant="icon-only"]) button {
+  width: var(--wc-button--icon-only-size, 36px);
+  height: var(--wc-button--icon-only-size, 36px);
+  padding: var(--wc-button--icon-only-padding, 0);
+}
+
+/* Focus ring */
+:host button:focus-visible {
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.25);
+}
+
+/* Hover state */
+:host button:not([disabled]):hover {
+  opacity: var(--wc-button--hover-opacity, 0.90);
+}
+
+/* Active / press state */
+:host button:active {
+  transform: scale(var(--wc-button--active-scale, 0.96));
+}
+
+/* Slotted content */
+::slotted(*) {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}

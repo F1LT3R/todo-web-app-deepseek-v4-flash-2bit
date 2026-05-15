@@ -93,3 +93,109 @@
  *
  * (None — this is a presentational atom.)
  */
+
+class WcIcon extends HTMLElement {
+  /**
+   * Registry of built-in SVG icon path data (viewBox: 0 0 24 24).
+   */
+  static SVG_REGISTRY = {
+    check: 'M4 12l5 5L20 7',
+    plus: 'M12 5v14M5 12h14',
+    edit: 'M11 4H4a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7',
+    editPencil: 'M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z',
+    trash: 'M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6',
+    clone: 'M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1',
+    cloneCopy: 'M8 5h8a2 2 0 0 1 2 2v2M2 17V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2',
+    grip: 'M9 5h1M9 12h1M9 19h1M14 5h1M14 12h1M14 19h1',
+    menu: 'M3 6h18M3 12h18M3 18h18',
+    cancel: 'M18 6L6 18M6 6l12 12',
+    done: 'M4 12l5 5L20 7',
+  };
+
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+    this._attachStyles();
+    this._injectTemplate(this._renderSvg(this.icon));
+  }
+
+  attributeChangedCallback(name, old, new) {
+    if (old === new) return;
+    if (this.shadowRoot) {
+      switch (name) {
+        case 'icon':
+          this._injectTemplate(this._renderSvg(new));
+          break;
+        case 'size':
+          this.style.setProperty('--wc-icon--size', new ? `${new}px` : '24px');
+          break;
+        case 'fill':
+          this.style.setProperty('--wc-icon--fill', new || 'currentColor');
+          break;
+      }
+    }
+  }
+
+  adoptedCallback() {
+    // No-op — presentational component
+  }
+
+  static get observedAttributes() {
+    return ['icon', 'size', 'fill'];
+  }
+
+  /* --- Accessors --- */
+
+  get icon() {
+    return this.getAttribute('icon') || 'check';
+  }
+
+  set icon(value) {
+    this.setAttribute('icon', value);
+  }
+
+  get size() {
+    return parseInt(this.getAttribute('size'), 10) || 24;
+  }
+
+  set size(value) {
+    this.setAttribute('size', String(value));
+    this.style.setProperty('--wc-icon--size', `${value}px`);
+  }
+
+  /* --- Internal Methods --- */
+
+  _renderSvg(name) {
+    const data = WcIcon.SVG_REGISTRY[name];
+    if (!data) return '';
+
+    // Split multi-segment paths (M... M... sequences into separate paths)
+    const segments = data.match(/M[^M]+/g) || [];
+    return segments.map((seg) => `<path d="${seg}" />`).join('\n');
+  }
+
+  _attachStyles() {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = new URL('wc-icon.css', import.meta.url);
+    this.shadowRoot.appendChild(link);
+  }
+
+  _injectTemplate(svgMarkup) {
+    const viewbox = '0 0 24 24';
+    const svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svgEl.setAttribute('viewBox', viewbox);
+    svgEl.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    svgEl.setAttribute('aria-hidden', 'true');
+    svgEl.innerHTML = svgMarkup;
+    this.shadowRoot.innerHTML = '';
+    this.shadowRoot.appendChild(svgEl);
+  }
+}
+
+customElements.define('wc-icon', WcIcon);
+
+export { WcIcon, WcIcon as WcIconClass };

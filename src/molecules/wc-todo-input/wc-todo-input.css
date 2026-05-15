@@ -30,3 +30,20 @@
  * This molecule sets domain-specific defaults for the generic text input.
  * No additional visual elements beyond the composed atom.
  */
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+:host wc-text-input {
+  --wc-text-input--padding: var(--wc-todo-input--padding, 12px 14px);
+  --wc-text-input--background: var(--wc-todo-input--background, #fafafa);
+  --wc-text-input--border-radius: var(--wc-todo-input--border-radius, 6px);
+  --wc-text-input--font-size: var(--wc-todo-input--font-size, 15px);
+}
+
+:host(:focus-within) {
+  outline: none;
+}
