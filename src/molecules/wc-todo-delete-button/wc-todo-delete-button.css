@@ -1,0 +1,32 @@
+/*
+ * wc-todo-delete-button.css
+ *
+ * Docstrings-only CSS file for the `<wc-todo-delete-button>` molecule.
+ *
+ * A semantic delete button molecule for TODO items. Composes
+ * `<wc-icon-button>` with a trash icon and danger styling.
+ *
+ * ## CSS Variables (custom properties)
+ *
+ * | Variable                                    | Default    | Purpose |
+ * |---------------------------------------------|------------|---------|
+ * | --wc-todo-delete-button--background-hover   | #fee       | Red-tinted hover (light red). |
+ * | --wc-todo-delete-button--background-active  | #fdd       | Darker red on press. |
+ * | --wc-todo-delete-button--icon-fill          | #888       | Muted icon colour by default. |
+ * | --wc-todo-delete-button--icon-fill-hover    | #c41e1e    | Bright red icon on hover. |
+ * | --wc-todo-delete-button--transition         | 0.15s      | Transition duration. |
+ *
+ * ## Selectors
+ *
+ * | Selector                                      | Purpose |
+ * |-----------------------------------------------|---------|
+ * | :host                                         | Inline-block, cursor pointer. |
+ * | :host wc-icon-button                          | Selects the composed child. |
+ * | :host(:hover) wc-icon-button                  | Hover overrides. |
+ * | :host(:active) wc-icon-button                 | Active overrides. |
+ *
+ * ## Notes
+ *
+ * Provides only CSS overrides on the base `<wc-icon-button>` atom. The
+ * icon itself is set to "trash" by the component.
+ */

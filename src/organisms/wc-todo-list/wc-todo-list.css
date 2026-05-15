@@ -1,0 +1,40 @@
+/*
+ * wc-todo-list.css
+ *
+ * Docstrings-only CSS file for the `<wc-todo-list>` organism.
+ *
+ * An ordered, sortable list of <wc-todo-item> items. Provides the
+ * drag-and-drop (reorder) container with drop zones and visual
+ * feedback during drag operations.
+ *
+ * ## CSS Variables (custom properties)
+ *
+ * | Variable                                | Default                | Purpose |
+ * |-----------------------------------------|------------------------|---------|
+ * | --wc-todo-list--gap                    | 4px                    | Gap between item rows. |
+ * | --wc-todo-list--padding                | 8px 0                 | Padding around the list. |
+ * | --wc-todo-list--background             | transparent            | List background. |
+ * | --wc-todo-list--drop-indicator-color   | #1a73e8               | Blue line indicating drop position. |
+ * | --wc-todo-list--drop-indicator-height  | 3px                    | Thickness of the drop indicator. |
+ * | --wc-todo-list--transition             | 0.15s                  | Reorder animation duration. |
+ * | --wc-todo-list--empty-text-color       | #999                   | Placeholder text when list empty. |
+ * | --wc-todo-list--empty-text-font-size   | 14px                   | Empty state hint font size. |
+ *
+ * ## Selectors
+ *
+ * | Selector                                      | Purpose |
+ * |-----------------------------------------------|---------|
+ * | :host                                         | Flex column layout, min-height for drop area. |
+ * | :host .todo-list-container                    | Wrapper for the list of items. |
+ * | :host .todo-list-container wc-todo-item        | Rendered item children. |
+ * | :host .todo-list-container .drop-indicator    | A visual line shown at the active drop index. |
+ * | :host([empty]) .todo-list-empty               | Shown when no items present. |
+ * | :host([dragging])                             | Active drag state on the whole list. |
+ * | :host([dragging]) wc-todo-item                | Reduced opacity for non-target items. |
+ * | :host([dragging]) .drop-indicator             | Visible only during drag. |
+ *
+ * ## Notes
+ *
+ * The list exposes drop-target zones by listening to `dragover`,
+ * `dragenter`, `dragleave`, and `drop` events on itself.
+ */

@@ -1,0 +1,39 @@
+/*
+ * wc-todo-form.css
+ *
+ * Docstrings-only CSS file for the `<wc-todo-form>` organism.
+ *
+ * The "Add a new TODO" input form. Composes:
+ *   - <wc-todo-input> for the new item text.
+ *   - <wc-button variant="primary"> for the submit action.
+ *
+ * The form is a horizontal bar (input + button) at the top of the app.
+ *
+ * ## CSS Variables (custom properties)
+ *
+ * | Variable                                | Default    | Purpose |
+ * |-----------------------------------------|------------|---------|
+ * | --wc-todo-form--padding                | 12px 0    | Padding around the form row. |
+ * | --wc-todo-form--gap                    | 8px        | Gap between input and button. |
+ * | --wc-todo-form--background             | transparent | Form background. |
+ * | --wc-todo-form--input-flex             | 1          | Flex grow for the input. |
+ * | --wc-todo-form--button-flex            | 0          | Fixed-size button. |
+ * | --wc-todo-form--submit-background      | #1a73e8    | Submit button background. |
+ * | --wc-todo-form--submit-foreground      | #fff       | Submit button text colour. |
+ * | --wc-todo-form--submit-font-size       | 14px       | Submit button font size. |
+ * | --wc-todo-form--submit-padding         | 8px 20px   | Submit button padding. |
+ *
+ * ## Selectors
+ *
+ * | Selector                                      | Purpose |
+ * |-----------------------------------------------|---------|
+ * | :host                                         | Horizontal flex row, align-items: center. |
+ * | :host wc-todo-input                           | The text input atom with placeholder. |
+ * | :host wc-button[type="submit"]                | The submit button. |
+ * | :host slot                                   | Any additional content. |
+ *
+ * ## Notes
+ *
+ * The form does NOT wrap a native `<form>` element. Instead, it uses
+ * composed atoms and dispatches a custom event.
+ */

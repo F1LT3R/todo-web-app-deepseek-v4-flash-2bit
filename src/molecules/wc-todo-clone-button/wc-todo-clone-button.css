@@ -1,0 +1,32 @@
+/*
+ * wc-todo-clone-button.css
+ *
+ * Docstrings-only CSS file for the `<wc-todo-clone-button>` molecule.
+ *
+ * A clone/duplicate button molecule for TODO items. Composes
+ * `<wc-icon-button>` with a copy/duplicate icon. Visually distinct
+ * from the delete button.
+ *
+ * ## CSS Variables (custom properties)
+ *
+ * | Variable                                    | Default    | Purpose |
+ * |---------------------------------------------|------------|---------|
+ * | --wc-todo-clone-button--background-hover    | #eef       | Blue-tinted hover. |
+ * | --wc-todo-clone-button--background-active   | #ddf        | Deeper blue on press. |
+ * | --wc-todo-clone-button--icon-fill           | #888        | Muted icon by default. |
+ * | --wc-todo-clone-button--icon-fill-hover     | #1a73e8     | Blue icon on hover. |
+ * | --wc-todo-clone-button--transition          | 0.15s       | Transition duration. |
+ *
+ * ## Selectors
+ *
+ * | Selector                                      | Purpose |
+ * |-----------------------------------------------|---------|
+ * | :host                                         | Inline-block layout. |
+ * | :host wc-icon-button                          | Composed atom. |
+ * | :host(:hover) wc-icon-button                  | Hover overrides. |
+ *
+ * ## Notes
+ *
+ * Provides only CSS overrides on the base `<wc-icon-button>` atom.
+ * Icon is set to "copy/clone" by the component.
+ */

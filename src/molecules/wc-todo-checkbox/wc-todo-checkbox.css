@@ -1,0 +1,37 @@
+/*
+ * wc-todo-checkbox.css
+ *
+ * Docstrings-only CSS file for the `<wc-todo-checkbox>` molecule component.
+ *
+ * A domain-specific checkbox for TODO items. It composes a `<wc-checkbox>`
+ * with additional styling for the TODO context — larger hit area,
+ * strikethrough text integration, and animation on completion.
+ *
+ * ## CSS Variables (custom properties)
+ *
+ * | Variable                                    | Default    | Purpose |
+ *|---------------------------------------------|------------|---------|
+ *| --wc-todo-checkbox--size                    | 24px       | Larger checkbox size for readability. |
+ *| --wc-todo-checkbox--border-color            | #bbb       | Border, unchecked. |
+ *| --wc-todo-checkbox--border-color-checked    | #34a853    | Green border when checked. |
+ *| --wc-todo-checkbox--background-checked      | #34a853    | Green background when checked. |
+ *| --wc-todo-checkbox--checkmark-color         | #fff       | White checkmark on green. |
+ *| --wc-todo-checkbox--transition              | 0.2s       | Slightly longer transition. |
+ *| --wc-todo-checkbox--hit-area               | 44px       | Touch-friendly hit area. |
+ *
+ * ## Selectors
+ *
+ * | Selector                                | Purpose |
+ * |----------------------------------------|---------|
+ * | :host                                   | Flex row, align-items: center. |
+ * | :host wc-checkbox                       | Selects the composed child. |
+ * | :host([checked]) wc-checkbox            | Green styling when checked. |
+ * | :host slot                             | Strikethrough or dimmed label text. |
+ * | :host([checked]) ::slotted(*)          | Text-decoration: line-through, opacity 0.5. |
+ *
+ * ## Notes
+ *
+ * This molecule wraps `<wc-checkbox>`. The label text is projected via
+ * a `<slot>` named "label". This molecule provides domain-specific sizing
+ * and the strikethrough effect on the completed TODO.
+ */

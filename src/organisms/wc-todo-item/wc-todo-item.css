@@ -1,0 +1,59 @@
+/*
+ * wc-todo-item.css
+ *
+ * Docstrings-only CSS file for the `<wc-todo-item>` organism.
+ *
+ * A single TODO item row organism. Composes:
+ *   - <wc-todo-checkbox> for completion toggling.
+ *   - A static text label (or <wc-todo-edit-input> when editing).
+ *   - <wc-todo-delete-button> and <wc-todo-clone-button> action controls.
+ *   - A drag-handle for reordering.
+ *
+ * The organism manages two visual modes:
+ *   - "view" mode:  checkbox + text + buttons (default).
+ *   - "edit" mode:  checkbox + edit-input (save/cancel) + buttons.
+ *
+ * ## CSS Variables (custom properties)
+ *
+ * | Variable                                | Default                | Purpose |
+ * |-----------------------------------------|------------------------|---------|
+ * | --wc-todo-item--padding                | 8px 12px              | Inner padding of the row. |
+ * | --wc-todo-item--background             | #fff                   | Row background. |
+ * | --wc-todo-item--background-hover       | #f8f9fa               | Background on hover. |
+ * | --wc-todo-item--border-radius          | 6px                    | Row corner radius. |
+ * | --wc-todo-item--border                | 1px solid #e0e0e0      | Row border. |
+ * | --wc-todo-item--gap                    | 8px                    | Gap between internal sections. |
+ * | --wc-todo-item--transition             | 0.12s                  | Transition for drag / hover. |
+ * | --wc-todo-item--drag-handle-size      | 24px                   | Drag handle width. |
+ * | --wc-todo-item--drag-handle-fill      | #ccc                   | Drag handle icon colour. |
+ * | --wc-todo-item--dragging-opacity       | 0.7                    | Opacity while being dragged. |
+ * | --wc-todo-item--text-font-size         | 15px                   | TODO text size. |
+ * | --wc-todo-item--text-color             | #333                   | TODO text colour. |
+ * | --wc-todo-item--text-color-done        | #999                   | Done TODO text colour. |
+ * | --wc-todo-item--edit-mode-background   | #f0f8ff               | Edit mode highlight. |
+ * | --wc-todo-item--shadow                 | 0 1px 3px rgba(0,0,0,0.10) | Subtle row shadow. |
+ * | --wc-todo-item--dragging-shadow        | 0 4px 12px rgba(0,0,0,0.20) | Elevated shadow when dragging. |
+ *
+ * ## Selectors
+ *
+ * | Selector                                      | Purpose |
+ *|-----------------------------------------------|---------|
+ *| :host                                         | Flex row layout, position relative. |
+ *| :host([dragging])                             | Opacity reduced, shadow elevated. |
+ *| :host([editing])                             | Background highlight for edit mode. |
+ *| :host([checked]) .todo-text                   | Text strikethrough + dim colour. |
+ *| .drag-handle                                  | Leftmost grab/canvas element for drag. |
+ *| .drag-handle wc-icon                          | Icon inside the drag handle. |
+ *| .todo-checkbox                                | <wc-todo-checkbox> wrapper. |
+ *| .todo-text                                    | The TEXT display node (view mode). |
+ *| .todo-edit-input                              | <wc-todo-edit-input> wrapper (edit mode). |
+ *| .todo-actions                                 | Right-aligned group for delete + clone. |
+ *| .todo-actions wc-todo-delete-button            | |
+ *| .todo-actions wc-todo-clone-button             | |
+ *| .todo-actions wc-icon-button.edit-button        | Edit button (pencil icon). |
+ *
+ * ## Notes
+ *
+ * The default state is "view mode". Toggling shows "edit mode".
+ * The drag handle uses a "grip" icon.
+ */

@@ -1,0 +1,56 @@
+<!--
+  index.html
+
+  Docstrings-only HTML file for the TODO application's entry page.
+
+  This is the Level 5 — Page. It loads all atom, molecule, organism,
+  and template component definitions and renders the single
+  `<wc-todo-app>` element.
+
+  ## Document Type
+
+  HTML5 document with a lang="en" attribute.
+
+  ## Head
+
+  - Meta charset="UTF-8"
+  - Meta name="viewport", content="width=device-width, initial-scale=1.0
+  - Title: "Todo App / Atomic Design"
+
+  ## Body
+
+  - A single <wc-todo-app> element, let's the page content be empty
+    aside from the component.
+  - Script imports (deferred, module scripts or regular scripts) for:
+
+    ### Atom scripts
+    - src/atoms/wc-icon/wc-icon.js
+    - src/atoms/wc-button/wc-button.js
+    - src/atoms/wc-checkbox/wc-checkbox.js
+    - src/atoms/wc-text-input/wc-text-input.js
+    - src/atoms/wc-icon-button/wc-icon-button.js
+
+    ### Molecule scripts
+    - src/molecules/wc-todo-checkbox/wc-todo-checkbox.js
+    - src/molecules/wc-todo-input/wc-todo-input.js
+    - src/molecules/wc-todo-delete-button/wc-todo-delete-button.js
+    - src/molecules/wc-todo-clone-button/wc-todo-clone-button.js
+    - src/molecules/wc-todo-edit-input/wc-todo-edit-input.js
+
+    ### Organism scripts
+    - src/organisms/wc-todo-item/wc-todo-item.js
+    - src/organisms/wc-todo-list/wc-todo-list.js
+    - src/organisms/wc-todo-form/wc-todo-form.js
+
+    ### Template scripts
+    - src/templates/wc-todo-app/wc-todo-app.js
+
+  ## Notes
+
+  The page does not include any CSS — all styling is encapsulated in
+  each component's external CSS file and loaded into their respective
+  Shadow DOMs.
+
+  The page also does not include global resets or normalise. Each
+  component manages its own minimal set of styles.
+-->

@@ -1,0 +1,32 @@
+/*
+ * wc-todo-input.css
+ *
+ * Docstrings-only CSS file for the `<wc-todo-input>` molecule component.
+ *
+ * A domain-specific input molecule for adding or editing TODO text.
+ * Composes a `<wc-text-input>` atom with an auto-focus behaviour and
+ * "enter-to-submit" styling cues.
+ *
+ * ## CSS Variables (custom properties)
+ *
+ * | Variable                                | Default    | Purpose |
+ * |-----------------------------------------|------------|---------|
+ * | --wc-todo-input--padding               | 12px 14px  | Inner padding for the input. |
+ * | --wc-todo-input--background            | #fafafa    | Slightly tinted background. |
+ * | --wc-todo-input--border-radius         | 6px        | Slightly larger radius. |
+ * | --wc-todo-input--font-size             | 15px       | Good-sized text for TODO. |
+ * | --wc-todo-input--label-color           | #888       | Dimmed label hint. |
+ *
+ * ## Selectors
+ *
+ * | Selector                                | Purpose |
+ * |---------------------------------------|---------|
+ * | :host                                   | Flex column layout. |
+ * | :host wc-text-input                     | The composed atom. |
+ * | :host slot                             | Additional hint or button. |
+ *
+ * ## Notes
+ *
+ * This molecule sets domain-specific defaults for the generic text input.
+ * No additional visual elements beyond the composed atom.
+ */

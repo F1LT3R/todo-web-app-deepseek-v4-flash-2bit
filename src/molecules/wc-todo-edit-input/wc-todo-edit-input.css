@@ -1,0 +1,40 @@
+/*
+ * wc-todo-edit-input.css
+ *
+ * Docstrings-only CSS file for the `<wc-todo-edit-input>` molecule.
+ *
+ * An inline editing control molecule. Composes a `<wc-todo-input>` with
+ * two action buttons ("Save" and "Cancel") placed in a row beside the
+ * input.
+ *
+ * ## CSS Variables (custom properties)
+ *
+ * | Variable                                    | Default    | Purpose |
+ * |---------------------------------------------|------------|---------|
+ * | --wc-todo-edit-input--gap                   | 6px        | Gap between input and buttons. |
+ * | --wc-todo-edit-input--padding               | 4px 0     | Inner padding. |
+ * | --wc-todo-edit-input--background            | #fff       | Background. |
+ * | --wc-todo-edit-input--save-button-text      | "Save"     | Default text for save button. |
+ * | --wc-todo-edit-input--cancel-button-text    | "Cancel"   | Default text for cancel. |
+ * | --wc-todo-edit-input--save-background       | #1a73e8    | Save button background. |
+ * | --wc-todo-edit-input--save-foreground       | #fff       | Save button text colour. |
+ * | --wc-todo-edit-input--cancel-background     | #e0e0e0    | Cancel button background. |
+ * | --wc-todo-edit-input--cancel-foreground     | #333       | Cancel button text colour. |
+ *
+ * ## Selectors
+ *
+ * | Selector                                      | Purpose |
+ * |-----------------------------------------------|---------|
+ * | :host                                         | Flex row layout, align-items: stretch. |
+ * | :host .edit-input-wrapper                     | Wraps the input for layout context. |
+ * | :host .edit-input-wrapper wc-todo-input        | Composed input atom. |
+ * | :host .edit-actions                           | Button group container (flex row). |
+ * | :host .edit-actions .save-button              | Save <wc-button> atom. |
+ * | :host .edit-actions .cancel-button            | Cancel <wc-button> atom. |
+ *
+ * ## Notes
+ *
+ * This molecule appears when the user taps the "edit" action on a
+ * TODO item. It replaces the static text with an input + two
+ * confirmation buttons.
+ */
